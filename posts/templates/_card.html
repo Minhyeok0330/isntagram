@@ -1,3 +1,4 @@
+{% load django_bootstrap5 %}
 <div class="card my-3 col-12 col-md-4">
     <div class="card-header">
       <img class="rounded-circle" src="{{post.user.profile_image.url}}" alt="" width="30px">
@@ -9,5 +10,20 @@
       <p class="card-text">{{post.content}}</p>
       <p class="card-text">{{post.created_at|timesince}}</p>
       <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+    </div>
+    <div class="card-footer">
+      {% if user.is_authenticated %}
+      <form action="{% url 'posts:comment_create' post.id %}" method="POST">
+        {% csrf_token %}
+        <div class="row align-items-center">
+          <div class="col-9">
+            {% bootstrap_form form show_label=False wrapper_class='' %}
+          </div>
+          <div class="col-3">
+            <button type="submit" class="btn btn-primary">작성</button>
+          </div>
+        </div>
+      </form>
+      {% endif %}
     </div>
   </div>
