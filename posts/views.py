@@ -53,3 +53,6 @@ def like(request, post_id):
         post.like_users.add(user)
     
     return redirect('posts:index')
+
+def profile(request, username):
+    pass

@@ -4,7 +4,7 @@ from .models import Post, Comment
 class PostForm(ModelForm):
     class Meta():
         model = Post
-        exclude = ('user',)
+        fields = ('content', 'image',)
 
 class CommentForm(ModelForm):
     class Meta():
