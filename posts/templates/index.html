@@ -6,4 +6,35 @@
         {% include '_card.html' %}
     {% endfor %}
         </div>
+        <script>
+            let likeBtns = document.querySelectorAll('i.like')
+
+            let likeRequest = async (btn, postId) => {
+                let likeURL = `/posts/${postId}/like-async`
+                
+                let res = await fetch(likeURL)
+                let result = await res.json()
+                
+                if (result.status) {
+                    btn.style.color = 'blue'
+                    btn.classList.remove('bi-hand-thumbs-up')
+                    btn.classList.add('bi-hand-thumbs-up-fill')
+                } else {
+                    btn.style.color = 'black'
+                    btn.classList.remove('bi-hand-thumbs-up-fill')
+                    btn.classList.add('bi-hand-thumbs-up')
+                }
+                btn.querySelector('span').innerHTML = result.count
+            }
+                
+            likeBtns.forEach(function(likeBtn){
+                likeBtn.addEventListener('click', function(e){
+                        const postId = e.target.dataset.postId
+
+                        likeRequest(likeBtn, postId)
+                })
+            })
+
+
+        </script>
 {% endblock %}
